@@ -24,6 +24,7 @@ jobs:
       - name: Checkout the goutamdas/gcp-instance-start-stop
         uses: actions/checkout@v4
         with:
+          github_token: ${API_TOKEN_GITHUB}
           repository: 'goutamdas/gcp-instance-start-stop'
           path: 'gcp-instance-start-stop'
 
