@@ -8,9 +8,7 @@ on:
 jobs:
   copy-file:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
+    permissions: write-all
     steps:
       - name: Checkout the goutamdas/terraform-aws-template
         uses: actions/checkout@v4
