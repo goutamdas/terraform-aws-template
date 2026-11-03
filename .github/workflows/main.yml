@@ -25,7 +25,7 @@ jobs:
 
       - name: git commands
         run: |
-          cd repo_b; 
+          cd gcp-instance-start-stop; 
           git config user.name "Goutam Das";
           git config user.email "goutam.das@example.com";
           git add README.md;
