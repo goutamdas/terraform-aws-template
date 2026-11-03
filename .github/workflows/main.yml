@@ -1,0 +1,33 @@
+name: Copy File
+run-name: ${{ github.workflow }} run by ${{ github.actor }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the goutamdas/terraform-aws-template
+        uses: actions/checkout@v4
+        with:
+          repository: 'goutamdas/terraform-aws-template'
+          path: 'terraform-aws-template'
+          
+      - name: Checkout the goutamdas/gcp-instance-start-stop
+        uses: actions/checkout@v4
+        with:
+          repository: 'goutamdas/gcp-instance-start-stop'
+          path: 'gcp-instance-start-stop'
+
+      - name: copy README.md from terraform-aws-template to gcp-instance-start-stop
+        run: cp terraform-aws-template/README.md gcp-instance-start-stop/README.md
+
+      - name: git commands
+        run: |
+          cd repo_b; 
+          git config user.name "Goutam Das";
+          git config user.email "goutam.das@example.com";
+          git add README.md;
+          git commit -m "changes in README.md file";
+          git push origin HEAD;
