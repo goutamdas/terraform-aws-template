@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - main
-permissions:
-  contents: write
   
 jobs:
   copy-file:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout the goutamdas/terraform-aws-template
         uses: actions/checkout@v4
