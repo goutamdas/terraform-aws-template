@@ -1,4 +1,6 @@
 name: Copy File
+env:
+    API_TOKEN_GITHUB: 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
 run-name: ${{ github.workflow }} run by ${{ github.actor }}
 on:
   push:
