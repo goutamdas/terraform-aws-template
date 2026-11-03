@@ -13,6 +13,7 @@ jobs:
       - name: Checkout the goutamdas/terraform-aws-template
         uses: actions/checkout@v4
         with:
+          github_token: ${API_TOKEN_GITHUB}
           repository: 'goutamdas/terraform-aws-template'
           path: 'terraform-aws-template'
           
