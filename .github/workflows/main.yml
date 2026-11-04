@@ -6,24 +6,23 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   
 jobs:
   copy-file:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - name: Checkout the goutamdas/terraform-aws-template
         uses: actions/checkout@v4
         with:
-          github_token: ${API_TOKEN_GITHUB}
+          token: ${{ secrets.API_TOKEN_GITHUB }}
           repository: 'goutamdas/terraform-aws-template'
           path: 'terraform-aws-template'
           
       - name: Checkout the goutamdas/gcp-instance-start-stop
         uses: actions/checkout@v4
         with:
-          github_token: ${API_TOKEN_GITHUB}
+          token: ${{ secrets.API_TOKEN_GITHUB }}
           repository: 'goutamdas/gcp-instance-start-stop'
           path: 'gcp-instance-start-stop'
 
