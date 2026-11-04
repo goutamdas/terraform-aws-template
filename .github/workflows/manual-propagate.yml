@@ -1,0 +1,48 @@
+name: Manually Propagate README
+run-name: Propagate README to ${{ inputs.target_branch }} by ${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: Branch in goutamdas/gcp-instance-start-stop to update
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  propagate-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          path: source
+
+      - name: Checkout destination branch
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+          repository: goutamdas/gcp-instance-start-stop
+          ref: ${{ inputs.target_branch }}
+          path: destination
+
+      - name: Copy README
+        run: cp source/README.md destination/README.md
+
+      - name: Commit and push changes
+        env:
+          TARGET_BRANCH: ${{ inputs.target_branch }}
+        run: |
+          git -C destination config user.name "github-actions[bot]"
+          git -C destination config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C destination add README.md
+          if git -C destination diff --cached --quiet; then
+            echo "README.md is already up to date."
+            exit 0
+          fi
+          git -C destination commit -m "Propagate README from terraform-aws-template"
+          git -C destination push origin "HEAD:${TARGET_BRANCH}"
